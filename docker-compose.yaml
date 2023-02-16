@@ -1,0 +1,11 @@
+version: "0.1"
+services:
+  app:
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile.app
+    tty: true
+    volumes:
+      - type: bind
+        source: app
+        target: /mnt
