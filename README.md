@@ -20,13 +20,13 @@ Make sure [nix-direnv](https://github.com/nix-community/nix-direnv) is installed
 direnv allow
 ```
 
-> **Note** 
-> 
+> **Note**
+>
 > [direnv](https://direnv.net/docs/installation.html) will also need to be installed so that `nix-direnv` works.
 
 ### Environment Variables
 
-Environment variables are stored in a `.env` file, but will not be bundled with the repository. You can customize the `default.env` to `.env` to build off the default environment variable file.
+Environment variables are stored in a `.env` file, but will not be bundled with the repository. You can customize the `defaults.env` to `.env` to build off the default environment variable file.
 
 ### App Folder
 
