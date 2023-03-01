@@ -1,28 +1,31 @@
-# blank
+# The Primordia Nebulous Blank
 
-This is the grand starter to any new creative venture. Right now, I've provided some starter juice that would allow any project to be portable. Right now, because of how slow `devcontainers` are, I'm going to stick with native workflows using `docker compose`. 
+> The essence of creativity is the birth of stars deep in a rainbow haze. Our minds, nebulous in intent and action, compact the starry sky into what may be a future star.
 
-## Configuration
+In other words, this is a template to make amazing projects or other templates.
 
-### autoenv
-I'm using [autoenv](https://github.com/hyperupcall/autoenv) to automatically "activate" my projects with the right environmental configurations if I'm developing locally. These should focus on using shell scripts that are reproducible across environments.
+## Background
 
-Right now, my `autoenv` is configured to use these defaults for the `env` file.
+All projects using this will be using [nix](https://nixos.org/) with `flakes` enabled to manage dependencies. You should be entering a shell that has everything you need with platform-independent defaults.
+
+I use [nix-direnv](https://github.com/nix-community/nix-direnv) as a way to autoload the nix-shell.
+
+All other dependencies and defaults are described in the `flake.nix`.
+
+## Getting Started
+
+Make sure [nix-direnv](https://github.com/nix-community/nix-direnv) is installed and run:
 
 ```shell
-export AUTOENV_ENV_FILENAME=".autoenv"
-export AUTOENV_ENV_LEAVE_FILENAME=".autoenv.leave"
+direnv allow
 ```
 
-### .devcontainer
-I also have a `.devcontainer` provided if I'm developing on the cloud. Ideally, I would configure `.devcontainer` and `.autoenv` to use the same shell scripts to auto-initialize any project.
+> **note** > [direnv](https://direnv.net/docs/installation.html) will also need to be installed so that `nix-direnv` works.
 
-> **Note**
-> I'm currently using the `.autoenv` as the initial script in `.devcontainer`
+### Environment Variables
 
-### docker
-I use Docker + Docker Compose to use my source code. The `.devcontainer` is an isolation layer that would install environmental configurations. The Docker Compose file should be used locally or in a `.devcontainer` without any discernable differences.
+Environment variables are stored in a `.env` file, but will not be bundled with the repository. You can customize the `default.env` to `.env` to build off the default environment variable file.
 
-> **Note**
->
-> This is an experiment to create a whole system of interconnected repositories that are universally configured, documented, and maintainable.
+### App Folder
+
+This is where your source code and assets for the project should go. The repository root is intended for environment or external configuration.
