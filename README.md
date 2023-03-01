@@ -20,7 +20,8 @@ Make sure [nix-direnv](https://github.com/nix-community/nix-direnv) is installed
 direnv allow
 ```
 
-> **note** > [direnv](https://direnv.net/docs/installation.html) will also need to be installed so that `nix-direnv` works.
+> **note** 
+> [direnv](https://direnv.net/docs/installation.html) will also need to be installed so that `nix-direnv` works.
 
 ### Environment Variables
 
