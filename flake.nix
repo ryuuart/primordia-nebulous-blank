@@ -10,11 +10,26 @@
         flake-utils.lib.eachDefaultSystem (system:
         let 
             pkgs = import nixpkgs { inherit system; };
+            pythonPkgs = pkgs.python310Packages;
         in rec {
             devShells.default = pkgs.mkShell {
-                packages = [ pkgs.zsh ];
+                name = "python-star";
 
-                shellHook = ''
+                venvDir = "./venv"; 
+
+                packages = with pkgs; [
+                    pythonPkgs.venvShellHook
+                    pythonPkgs.pip
+                    pythonPkgs.setuptools
+
+                    zlib
+                ];
+
+                postVenvCreation = ''
+                    echo "Generated pythonic synthesis domain."
+                '';
+
+                postShellHook = ''
                     echo
                     echo "     [[[[[  Welcome to the Nebula  ]]]]]"
                     echo "     ᚤᛟᚢ ᚨᚱᛖ ᛒᛖᚲᛟᛗᛁᚾᚷ ᛟᚾᛖ ᚹᛁᛏᚺ ᛏᚺᛖ ᛋᛏᚨᚱᛋ"
