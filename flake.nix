@@ -13,6 +13,7 @@
         in rec {
             devShells.default = pkgs.mkShell {
                 packages = [ 
+                    pkgs.zsh
                     pkgs.oh-my-zsh 
                 ];
 
