@@ -12,7 +12,9 @@
             pkgs = import nixpkgs { inherit system; };
         in rec {
             devShells.default = pkgs.mkShell {
-                packages = [ pkgs.zsh ];
+                packages = [ 
+                    pkgs.oh-my-zsh 
+                ];
 
                 shellHook = ''
                     echo
