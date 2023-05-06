@@ -11,7 +11,7 @@
         let 
             pkgs = import nixpkgs { inherit system; };
             llvm = pkgs.llvmPackages_15;
-            lib = nixpkgs.lib;
+            lib = pkgs.lib;
         in rec {
             devShells.default = pkgs.mkShell {
                 packages = [ 
@@ -22,13 +22,17 @@
 
                     # XXX: the order of include matters
                     pkgs.clang-tools
-                    llvm.clang # clangd
-                    llvm.libcxx
+                    llvm.libcxxClang
+                    llvm.libcxxStdenv
 
                     pkgs.gtest
                 ];
 
                 CXXFLAGS = "-std=c++20";
+                FRAMEWORK_PATH_CXX = lib.makeSearchPathOutput "dev" "include" [ llvm.libcxx ];
+                FRAMEWORK_PATH_C = lib.makeSearchPath "resource-root/include" [ llvm.clang ];
+                CLANG_PATH = lib.makeSearchPath "bin/clang" [ llvm.libcxxClang ];
+                
                 CPATH = builtins.concatStringsSep ":" [
                     (lib.makeSearchPathOutput "dev" "include" [ llvm.libcxx ])
                     (lib.makeSearchPath "resource-root/include" [ llvm.clang ])
