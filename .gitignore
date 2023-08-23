@@ -278,3 +278,5 @@ build/
 _build/
 
 .cache
+result
+result/

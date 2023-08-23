@@ -37,8 +37,8 @@
           '';
         };
 
-        packages.${system} = rec {
-          nebula = pkgs.stdenv.mkDerivation {
+        packages = rec {
+          default = pkgs.stdenv.mkDerivation {
             name = "nebula";
             version = "0.1.0";
             src = self;
@@ -52,16 +52,14 @@
             ];
 
             buildPhase = ''
-              cmake --build build /
+              cmake --build . 
             '';
 
             installPhase = ''
-              mkdir -p $out
-              cp build/Nebula $out
+              mkdir -p $out/bin
+              cp Nebula $out/bin
             '';
           };
-
-          default = nebula;
         };
       }
     );
