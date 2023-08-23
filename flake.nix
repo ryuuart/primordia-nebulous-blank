@@ -36,9 +36,10 @@
             echo
           '';
         };
-        packages.aarch64-darwin.default = pkgs.mkDerivation {
+        defaultPackage.aarch64-darwin = pkgs.stdenv.mkDerivation {
           name = "nebula";
           version = "0.1.0";
+          src = self;
 
           nativeBuildInputs = [
             # XXX: the order of include matters
@@ -53,6 +54,7 @@
           '';
 
           installPhase = ''
+            mkdir -p $out
             cp build/Nebula $out
           '';
         };
