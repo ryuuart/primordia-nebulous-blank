@@ -16,17 +16,16 @@
       rec {
         devShells.default = pkgs.mkShell {
           packages = [
-            pkgs.cmake
+            # XXX: the order of include matters
+            llvm.libcxxClang
+            llvm.libcxxStdenv
+            pkgs.clang-tools
 
             # debugger
             llvm.lldb
 
-            # XXX: the order of include matters
-            pkgs.clang-tools
-            llvm.libcxxClang
-            llvm.libcxxStdenv
-
             pkgs.gtest
+            pkgs.cmake
           ];
 
           shellHook = ''
