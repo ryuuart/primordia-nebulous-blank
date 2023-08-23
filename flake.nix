@@ -36,27 +36,32 @@
             echo
           '';
         };
-        defaultPackage.aarch64-darwin = pkgs.stdenv.mkDerivation {
-          name = "nebula";
-          version = "0.1.0";
-          src = self;
 
-          nativeBuildInputs = [
-            # XXX: the order of include matters
-            llvm.libcxxClang
-            # llvm.libcxxStdenv
-            # pkgs.clang-tools
-            pkgs.cmake
-          ];
+        packages.${system} = rec {
+          nebula = pkgs.stdenv.mkDerivation {
+            name = "nebula";
+            version = "0.1.0";
+            src = self;
 
-          buildPhase = ''
-            cmake --build build /
-          '';
+            nativeBuildInputs = [
+              # XXX: the order of include matters
+              llvm.libcxxClang
+              # llvm.libcxxStdenv
+              # pkgs.clang-tools
+              pkgs.cmake
+            ];
 
-          installPhase = ''
-            mkdir -p $out
-            cp build/Nebula $out
-          '';
+            buildPhase = ''
+              cmake --build build /
+            '';
+
+            installPhase = ''
+              mkdir -p $out
+              cp build/Nebula $out
+            '';
+          };
+
+          default = nebula;
         };
       }
     );
