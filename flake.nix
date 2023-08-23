@@ -1,51 +1,42 @@
 {
-    description = "This is a template to make amazing projects or other templates.";
+  description = "This is a template to make amazing projects or other templates.";
 
-    inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs";
-        flake-utils.url = "github:numtide/flake-utils";
-    };
-  
-    outputs = { self, nixpkgs, flake-utils }: 
-        flake-utils.lib.eachDefaultSystem (system:
-        let 
-            pkgs = import nixpkgs { inherit system; };
-            llvm = pkgs.llvmPackages_15;
-            lib = pkgs.lib;
-        in rec {
-            devShells.default = pkgs.mkShell {
-                packages = [ 
-                    pkgs.cmake
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
 
-                    # debugger
-                    llvm.lldb
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+        llvm = pkgs.llvmPackages_16;
+        lib = pkgs.lib;
+      in
+      rec {
+        devShells.default = pkgs.mkShell {
+          packages = [
+            pkgs.cmake
 
-                    # XXX: the order of include matters
-                    pkgs.clang-tools
-                    llvm.libcxxClang
-                    llvm.libcxxStdenv
+            # debugger
+            llvm.lldb
 
-                    pkgs.gtest
-                ];
+            # XXX: the order of include matters
+            pkgs.clang-tools
+            llvm.libcxxClang
+            llvm.libcxxStdenv
 
-                CXXFLAGS = "-std=c++20";
-                FRAMEWORK_PATH_CXX = lib.makeSearchPathOutput "dev" "include" [ llvm.libcxx ];
-                FRAMEWORK_PATH_C = lib.makeSearchPath "resource-root/include" [ llvm.clang ];
-                CLANG_PATH = lib.makeSearchPath "bin/clang" [ llvm.libcxxClang ];
-                
-                CPATH = builtins.concatStringsSep ":" [
-                    (lib.makeSearchPathOutput "dev" "include" [ llvm.libcxx ])
-                    (lib.makeSearchPath "resource-root/include" [ llvm.clang ])
-                ];
+            pkgs.gtest
+          ];
 
-                shellHook = ''
-                    echo
-                    echo "     [[[[[  Welcome to the Nebula  ]]]]]"
-                    echo "     ᚤᛟᚢ ᚨᚱᛖ ᛒᛖᚲᛟᛗᛁᚾᚷ ᛟᚾᛖ ᚹᛁᛏᚺ ᛏᚺᛖ ᛋᛏᚨᚱᛋ"
-                    echo "     [[[[[  •+-#—*#•-##++-*+-+••## ]]]]]"
-                    echo
-                '';
-            };
-        }
+          shellHook = ''
+            echo
+            echo "     [[[[[  Welcome to the Nebula  ]]]]]"
+            echo "     ᚤᛟᚢ ᚨᚱᛖ ᛒᛖᚲᛟᛗᛁᚾᚷ ᛟᚾᛖ ᚹᛁᛏᚺ ᛏᚺᛖ ᛋᛏᚨᚱᛋ"
+            echo "     [[[[[  •+-#—*#•-##++-*+-+••## ]]]]]"
+            echo
+          '';
+        };
+      }
     );
 }
