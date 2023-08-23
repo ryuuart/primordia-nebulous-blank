@@ -276,3 +276,5 @@ dkms.conf
 # Build output
 build/
 _build/
+
+.cache
