@@ -1,33 +1,45 @@
-# The Primordia Nebulous Blank
+# The Primordia Nebulous Blank CPP
 
-> The essence of creativity is the birth of stars deep in a rainbow haze. Our minds, nebulous in intent and action, compact the starry sky into what may be a future star.
-
-In other words, this is a template to make amazing projects or other templates.
+This is a C++ starter with some opinions on how to go about working, compiling, and building the repo.
 
 ## Background
 
-All projects using this will be using [nix](https://nixos.org/) with `flakes` enabled to manage dependencies. You should be entering a shell that has everything you need with platform-independent defaults.
+The repo follows a set of opinions on project layout and workflow to keep things consistent while working:
 
-I use [nix-direnv](https://github.com/nix-community/nix-direnv) as a way to autoload the nix-shell.
+1. The [pitchfork layout](http://api.csswg.org/bikeshed/?force=1&url=https://raw.githubusercontent.com/vector-of-bool/pitchfork/develop/data/spec.bs) is used for file structure.
 
-All other dependencies and defaults are described in the `flake.nix`.
+2. [CMake](https://cmake.org/) will be the thing that officially compiles and build the source code cross platform.
+
+3. [Nix](https://nixos.org/) is there to provide easy setup and building on unix-like systems.
+
+4. Nix **should not** be used in conjunction with native tools like VS Code.
+
+5. Rely on platform agnostic conventions. While Nix is used, it's only to help with unix-like systems. We still build for Windows.
+
+6. [Conan](https://conan.io/) should be used to help manage packages between systems.
+
+> **Note**
+> Refer to the `main` branch for more info on nix-specific details.
 
 ## Getting Started
 
-Make sure [nix-direnv](https://github.com/nix-community/nix-direnv) is installed and run:
+Make sure you have [CMake installed](https://cmake.org/install/).
+
+### Universal
+
+This should work in any system.
 
 ```shell
-direnv allow
+mkdir build
+cd build
+cmake ..
+cmake --build .
 ```
 
-> **Note**
->
-> [direnv](https://direnv.net/docs/installation.html) will also need to be installed so that `nix-direnv` works.
+### Nix
 
-### Environment Variables
+This should work for any nix system with flakes enabled.
 
-Environment variables are stored in a `.env` file, but will not be bundled with the repository. You can customize the `defaults.env` to `.env` to build off the default environment variable file.
-
-### App Folder
-
-This is where your source code and assets for the project should go. The repository root is intended for environment or external configuration.
+```shell
+nix build
+```
