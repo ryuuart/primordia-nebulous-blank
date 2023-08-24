@@ -7,7 +7,10 @@
   };
 
   outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
+    let
+      systems = [ "aarch64-darwin" "x86_64-linux" "aarch64-linux" ];
+    in
+    flake-utils.lib.eachSystem systems (system:
       let
         pkgs = import nixpkgs { inherit system; };
         llvm = pkgs.llvmPackages_16;
